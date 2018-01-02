@@ -26,21 +26,32 @@
 #ifndef _SIMPLE_ENGINE_MAIN_
 #define _SIMPLE_ENGINE_MAIN_
 
+#include <SimpleEngineConfig.h>
 #include <SDL.h>
 
-#define SE_RESULT int
-#define SE_SUCCESS 0
-#define SE_FAIL 1
+#define SE_SUCCESS SDL_TRUE
+#define SE_FAIL SDL_FALSE
+typedef SDL_bool SE_RESULT;
+typedef SDL_bool SE_bool;
 
-enum SE_ObjectType {
-    SIMPLE_OBJECT,
-    SPRITE_OBJECT
-};
+/* 
+    This is the function that wil draw the object within the confines
+    
+    *Note*: The confines is not enforced. Hence it is the responsibility of function
+    to maintain the integrity.
 
-typedef struct SE_Object {
-    SE_ObjectType type;
-    SDL_Rect location;
+    Example -> If the shape is a rectangle:
+        void draw(int x, int y, int w, int h){
+            SE_DrawRect(x,y,w,h);
+        }
+*/
+typedef void( *SE_DrawDef )(int x, int y, int w, int h);
 
+/* The basic object which will be*/
+typedef struct SE_SimpleObject {
+    SDL_Rect location; /* A rect object that will maintain the object position and confines*/
+    SDL_Color color;   /* Color with which the object should be drawn */
+    SE_DrawDef texure; /* The shape of the object */
 }SE_Object;
 
 #endif // !_SIMPLE_ENGINE_MAIN_

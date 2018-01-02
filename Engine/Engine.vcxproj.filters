@@ -18,11 +18,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="config.h">
-      <Filter>Config</Filter>
-    </ClInclude>
     <ClInclude Include="includes\collider.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleEngineConfig.h">
+      <Filter>Config</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

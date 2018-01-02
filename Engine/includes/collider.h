@@ -28,9 +28,26 @@
 
 #include <SDL.h>
 #include <SimpleEngine.h>
-typedef SDL_Rect SE_Collider;
 
-SE_Collider* create_collider( SE_Object object  );
+/* This function will be called when a collision happens
+    a -> Self
+    b -> Other
+
+    Example is a 'player' collides with 'wall'.
+    check_collision(player, wall);
+        => collision_routine(player, wall);
+*/
+typedef void( *SE_CollisionRoutine )(SE_Object *a, SE_Object *b);
+
+struct SE_Collider {
+    const SDL_Rect *geometry; /* pointer to the rect of SE_object */
+    SE_Object *object;
+    SE_bool is_active;
+    SE_CollisionRoutine collision_routine; /* Collision Handling*/
+};
+typedef struct SE_Collider SE_Collider;
+
+SE_Collider* create_collider( const SE_Object * object  );
 SE_RESULT destroy_collider( SE_Collider* collider );
 
 SE_RESULT disable_collider( SE_Collider* collider );
